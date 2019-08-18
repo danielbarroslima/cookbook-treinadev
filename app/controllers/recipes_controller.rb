@@ -1,12 +1,11 @@
 class RecipesController < ApplicationController
-  before_action :recipe_find, only: %i[ show edit update]
 
   def index
     @recipes = Recipe.all
   end
 
   def show
-    # @recipe = Recipe.find(params[:id])
+
   end
 
   def new
@@ -19,31 +18,31 @@ class RecipesController < ApplicationController
   def create
   	@recipe = Recipe.new(recipe_params)
     if @recipe.save
-      redirect_to @recipe
+      insert_sucess
     else
-      flash[:notice] = 'Você deve informar todos os dados da receita'
+      insert_fail
       render :new  
     end
   end
 
   def update
     if @recipe.update(recipe_params)
-      redirect_to @recipe
+      insert_sucess
     else
-      flash[:notice] = 'Você deve informar todos os dados da receita'  
+      insert_fail  
       render :edit  
-      
     end
-    
   end
+  
 
   private
-    def recipe_params
-      params.require(:recipe).permit(:title, :recipe_type, :cuisine, :difficulty, :cook_time, :ingredients,:cook_method)
+
+    def insert_sucess
+      redirect_to @recipe
+    end 
+
+    def insert_fail
+      flash[:notice] = 'Você deve informar todos os dados da receita'  
     end
 
-    def recipe_find
-      @recipe = Recipe.find(params[:id])
-      
-    end
 end
