@@ -1,3 +1,7 @@
+<%if @recipe.errors.any? %>
+<%=flash[:notice]%>
+<%end %>
+
 <%=form_for @recipe do  |recipe| %>
 <%=recipe.label :title, 'Título'%>
 <%=recipe.text_field :title%>
@@ -15,3 +19,4 @@
 <%=recipe.text_area :cook_method%>
 <%=recipe.submit 'Enviar'%>
 <%end%>
+

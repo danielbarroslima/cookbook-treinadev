@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :recipe_find, only: %i[ show edit update]
+
   def index
     @recipes = Recipe.all
   end
@@ -20,6 +21,7 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to @recipe
     else
+      flash[:notice] = 'Você deve informar todos os dados da receita'
       render :new  
     end
   end
@@ -28,6 +30,7 @@ class RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       redirect_to @recipe
     else
+      flash[:notice] = 'Você deve informar todos os dados da receita'  
       render :edit  
       
     end
