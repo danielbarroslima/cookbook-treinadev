@@ -15,4 +15,15 @@ feature 'admin register recipe type' do
 	  click_on 'Voltar'
 
   end
+
+  scenario 'correctly enter recipe types' do
+    visit root_path
+    click_on 'Enviar tipo de receita'
+
+    fill_in 'Nome',with:''
+    click_on 'Enviar'
+
+    expect(page).to have_css('p',text:'Preencha o campo Nome')
+  
+  end	
 end	
