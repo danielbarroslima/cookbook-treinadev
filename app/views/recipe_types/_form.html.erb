@@ -1,0 +1,11 @@
+<% if @recipe_type.errors.any?%>
+ [:notice]
+<%end%>
+
+<%= form_for @recipe_type  do |r| %>
+<%=r.label :name, 'Nome'%>
+<%=r.text_field :name %>
+<%=r.submit 'Enviar' %>
+
+<% end %>
+
