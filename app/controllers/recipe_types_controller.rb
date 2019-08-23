@@ -12,7 +12,7 @@ class RecipeTypesController < ApplicationController
     if @recipe_type.save
       redirect_to @recipe_type
     else
-      flash[:alert] = 'Preencha o campo Nome'
+      flash[:alert] = 'Tipo de receita já inserido no sistema,tente outro nome'
       render :new    
     end
   end 
@@ -26,4 +26,6 @@ class RecipeTypesController < ApplicationController
     def recipe_type_new
       @recipe_type = RecipeType.new 
     end
+
+
 end	

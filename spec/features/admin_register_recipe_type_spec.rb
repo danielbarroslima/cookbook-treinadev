@@ -7,11 +7,11 @@ feature 'admin register recipe type' do
 	  visit root_path
 	  click_on 'Enviar tipo de receita'
 
-	  fill_in 'Nome', with: 'Entrada'
+	  fill_in 'Nome', with: 'Prato Principal'
 	  click_on 'Enviar'
 
 	  expect(page).to have_css('h1', text:'Tipo de receita cadastrada')
-	  expect(page).to have_css('h3', text:'Entrada')
+	  expect(page).to have_css('h3', text:'Prato Principal')
 	  click_on 'Voltar'
 
   end
