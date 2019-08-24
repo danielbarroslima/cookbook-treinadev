@@ -10,13 +10,25 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <nav>
+    <%if user_signed_in? %>
+      <spam> <%= "Seja bem vindo #{current_user.email}" %></spam>  
+      <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
+    <%else%>
+      <%= link_to 'Entrar', new_user_session_path %>
+    <%end%>
+    </nav>
+
     <%= form_tag("/search", method: 'get') do%>
     <%= label_tag(:search_recipe,'Search for:')%>
     <%= text_field_tag(:search_recipe)%>
     <%= submit_tag 'Buscar'%>
     <%end%>
-    <%=flash[:notice]%>
-    <%=flash[:alert]%>
+
+
     <%= yield %>
   </body>
 </html>
