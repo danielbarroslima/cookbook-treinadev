@@ -12,7 +12,7 @@ class RecipeTypesController < ApplicationController
     if @recipe_type.save
       redirect_to @recipe_type
     else
-      flash[:alert] = 'Tipo de receita já inserido no sistema,tente outro nome'
+      flash[:notice] = 'Tipo não pode ser em branco ou repetido'
       render :new    
     end
   end 

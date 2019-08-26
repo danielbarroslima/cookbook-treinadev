@@ -3,16 +3,19 @@ require 'rails_helper'
 feature 'search recipes' do
   scenario 'successfully' do 
   	recipe_type = RecipeType.create!(name:'Entrada')
+    user = User.create!(email: 'teste@teste.com', password: 'teste123')
   	recipe = Recipe.create!(title: 'Bolo de fubá', recipe_type: recipe_type,
                             cuisine: 'Brasileira', difficulty: 'Médio',
                             cook_time: 60,
                             ingredients: 'Farinha, açucar, cenoura',
-                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                            user: user)
   	other_recipe = Recipe.create!(title: 'Bolo de cenoura', recipe_type: recipe_type,
 		                          cuisine: 'Brasileira', difficulty: 'Médio',
 		                          cook_time: 60,
 		                          ingredients: 'Farinha, açucar, cenoura',
-		                          cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+		                          cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                              user: user)
   	visit root_path
 
   	fill_in 'search_recipe', with: 'Bolo de cenoura'
@@ -25,16 +28,19 @@ feature 'search recipes' do
 
   scenario 'fail in search' do
   	recipe_type = RecipeType.create!(name:'Entrada')
+    user = User.create!(email: 'teste@teste.com', password: 'teste123')
   	recipe = Recipe.create!(title: 'Bolo de fubá', recipe_type: recipe_type,
                             cuisine: 'Brasileira', difficulty: 'Médio',
                             cook_time: 60,
                             ingredients: 'Farinha, açucar, cenoura',
-                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                            user: user)
   	other_recipe = Recipe.create!(title: 'Bolo de cenoura', recipe_type: recipe_type,
-		                          cuisine: 'Brasileira', difficulty: 'Médio',
-		                          cook_time: 60,
-		                          ingredients: 'Farinha, açucar, cenoura',
-		                          cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+    		                          cuisine: 'Brasileira', difficulty: 'Médio',
+    		                          cook_time: 60,
+    		                          ingredients: 'Farinha, açucar, cenoura',
+    		                          cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                                  user: user)
   	visit root_path
 
   	fill_in 'search_recipe', with:'Pavê'
@@ -45,23 +51,27 @@ feature 'search recipes' do
   end	
 
   scenario 'search include recipe' do 
-	recipe_type = RecipeType.create!(name:'Entrada')
+	  recipe_type = RecipeType.create!(name:'Entrada')
+    user = User.create!(email: 'teste@teste.com', password: 'teste123')
+
   	recipe = Recipe.create!(title: 'Bolo de fubá', recipe_type: recipe_type,
                             cuisine: 'Brasileira', difficulty: 'Médio',
                             cook_time: 60,
                             ingredients: 'Farinha, açucar, cenoura',
-                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
-  	
+                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                            user: user)
   	other_recipe = Recipe.create!(title: 'Bolo de cenoura', recipe_type: recipe_type,
-		                          cuisine: 'Brasileira', difficulty: 'Médio',
-		                          cook_time: 60,
-		                          ingredients: 'Farinha, açucar, cenoura',
-		                          cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+    		                          cuisine: 'Brasileira', difficulty: 'Médio',
+    		                          cook_time: 60,
+    		                          ingredients: 'Farinha, açucar, cenoura',
+    		                          cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                                  user: user)
     another_recipe = Recipe.create!(title: 'torta de frango', recipe_type: recipe_type,
-		                            cuisine: 'Brasileira', difficulty: 'Médio',
-		                            cook_time: 60,
-		                            ingredients: 'Farinha, açucar, cenoura',
-		                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+    		                            cuisine: 'Brasileira', difficulty: 'Médio',
+    		                            cook_time: 60,
+    		                            ingredients: 'Farinha, açucar, cenoura',
+    		                            cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                                    user: user)
   	visit root_path  
 
   	fill_in 'search_recipe', with:'Bolo'

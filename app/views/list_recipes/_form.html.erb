@@ -1,0 +1,9 @@
+<%if @list_recipe.errors.any? %>
+<%=flash[:notice]%>
+<%end %>
+
+<%= form_for @list_recipe do |list|%>
+<%=list.label :name , 'Nome'%>
+<%=list.text_field :name %>
+<%= list.submit 'Criar lista'%>
+<%end%>

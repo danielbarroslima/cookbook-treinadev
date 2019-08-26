@@ -15,7 +15,9 @@
 
     <nav>
     <%if user_signed_in? %>
-      <spam> <%= "Seja bem vindo #{current_user.email}" %></spam>  
+      <spam> <%= "Olá #{current_user.email}" %></spam>  
+      <%= link_to 'Minhas Receitas', my_recipes_path %>
+      <%= link_to 'Minhas listas de receitas', list_recipes_path %>
       <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
     <%else%>
       <%= link_to 'Entrar', new_user_session_path %>

@@ -1,6 +1,6 @@
-<% if @recipe_type.errors.any?%>
- <p>Preencha o campo Nome</p>
-<%end%>
+<%if @recipe_type.errors.any? %>
+<%=flash[:notice]%>
+<%end %>
 
 <%= form_for @recipe_type  do |r| %>
 <%=r.label :name, 'Nome'%>

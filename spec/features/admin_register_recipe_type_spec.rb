@@ -23,7 +23,18 @@ feature 'admin register recipe type' do
     fill_in 'Nome',with:''
     click_on 'Enviar'
 
-    expect(page).to have_css('p',text:'Preencha o campo Nome')
+    expect(page).to have_css('p',text:'Tipo não pode ser em branco ou repetido')
   
-  end	
+  end
+
+  scenario 'not permit duplicates' do
+  	recipe_type = RecipeType.create(name:'Entrada')
+    visit root_path
+    click_on 'Enviar tipo de receita'
+
+    fill_in 'Nome',with:'Entrada'
+    click_on 'Enviar'
+
+    expect(page).to have_css('p',text:'Tipo não pode ser em branco ou repetido')
+  end
 end	

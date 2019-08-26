@@ -4,7 +4,7 @@
 
 <%=form_for @recipe do  |recipe| %>
 <%=recipe.label :title, 'Título'%>
-<%=recipe.text_field :title%>
+<%=recipe.text_field :title %>
 <%=recipe.label :recipe_type_id,'Tipo da Receita'%>
 <%=recipe.collection_select :recipe_type_id, @recipe_types, :id, :name %>
 <%=recipe.label :cuisine,'Cozinha'%>

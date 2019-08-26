@@ -13,12 +13,11 @@ feature 'user login' do
       click_on 'Logar'
     end  
     
-    expect(page).to have_content("Seja bem vindo #{user.email}")
+    expect(page).to have_content("Olá #{user.email}")
     expect(page).not_to have_link('Entrar')
     expect(page).to have_link('Sair')
-  end  
-
-  scenario 'Log out' do
+  end
+ scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com', password: 'teste123')
     
     visit root_path
@@ -29,12 +28,10 @@ feature 'user login' do
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end  
-    
     click_on 'Sair'
-
-    expect(page).not_to have_content("Seja bem vindo #{user.email}")
-    expect(page).not_to have_link('Sair')
+    expect(page).not_to have_content("Olá #{user.email}")
     expect(page).to have_link('Entrar')
+    expect(page).not_to have_link('Sair')
   end  
 
 

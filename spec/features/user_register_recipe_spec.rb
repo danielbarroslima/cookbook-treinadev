@@ -1,13 +1,27 @@
 require 'rails_helper'
 
 feature 'User register recipe' do
+  scenario 'must be signed in' do 
+
+    visit new_recipe_path
+    expect(current_path).to eq(new_user_session_path)
+  end	
+
   scenario 'successfully' do
     #cria os dados necessários, nesse caso não vamos criar dados no banco
     RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
+    user = User.create!(email:'teste@teste.com',password:'teste123')
 
     # simula a ação do usuário
     visit root_path
+    click_on 'Entrar'
+
+    within('#new_user') do
+      fill_in 'Email', with: user.email
+      fill_in 'Senha', with: 'teste123'
+      click_on 'Logar'
+    end   
     click_on 'Enviar uma receita'
 
     fill_in 'Título', with: 'Tabule'
@@ -31,11 +45,23 @@ feature 'User register recipe' do
     expect(page).to have_css('p', text: 'Trigo para quibe, cebola, tomate picado, azeite, salsinha')
     expect(page).to have_css('h3', text: 'Como Preparar')
     expect(page).to have_css('p', text:  'Misturar tudo e servir. Adicione limão a gosto.')
+    expect(page).to have_content("Receita enviada por #{user.email}")
   end
 
   scenario 'and must fill in all fields' do
+    user = User.create!(email:'teste@teste.com',password:'teste123')
+
+
     # simula a ação do usuário
     visit root_path
+    click_on 'Entrar'
+
+    within('#new_user') do
+      fill_in 'Email', with: user.email
+      fill_in 'Senha', with: 'teste123'
+      click_on 'Logar'
+    end
+
     click_on 'Enviar uma receita'
 
     fill_in 'Título', with: ''

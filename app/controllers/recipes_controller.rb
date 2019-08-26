@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   before_action :recipe_type_all, only: %i[new create edit update]
-  before_action :recipe_find,     only:       %i[show edit update]  
+  before_action :recipe_find,     only:       %i[show edit update add_to_list] 
+  before_action :authenticate_user!, only: %i[new create edit update my_recipes] 
 
   def index
     @recipes = Recipe.all
@@ -14,10 +15,12 @@ class RecipesController < ApplicationController
   end
 
   def edit
+    return redirect_to root_path if current_user != @recipe.user
   end
 
   def create
   	@recipe = Recipe.new(recipe_params)
+    @recipe.user = current_user
     if @recipe.save
       insert_sucess_recipe
     else
@@ -27,6 +30,7 @@ class RecipesController < ApplicationController
   end
 
   def update
+    return redirect_to root_path if current_user != @recipe.user
     @recipe_type = RecipeType.find(params[:id])
     if @recipe.update(recipe_params)
       insert_sucess_recipe
@@ -42,6 +46,17 @@ class RecipesController < ApplicationController
       flash.now[:alert] = 'Nenhuma receita encontrada com este nome'
     end  
   end
+
+  def my_recipes
+    @recipes = current_user.recipes    
+  end
+
+  # def add_to_list
+  #   list_recipe = ListRecipe.find(params[:menu][:list_recipe_id])
+  #   @menu = Menu.create(list_recipe: list_recipe, recipe_id: params[:id])
+  #   redirect_to list_recipe
+    
+  # end
 
   private
 
@@ -61,13 +76,9 @@ class RecipesController < ApplicationController
       @recipe = Recipe.find(params[:id])
     end
 
-
-
-    def recipe_type_params
-      params.require(:recipe_type).permit(:name)
-    end
-
     def recipe_type_all
       @recipe_types = RecipeType.all
     end
+
+
 end
