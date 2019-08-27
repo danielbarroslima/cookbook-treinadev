@@ -21,6 +21,14 @@
   <%=link_to 'Editar', edit_recipe_path %>
 <%end%>
 
+<% if current_user %>
+  <%= form_for(@menu, url: add_to_list_recipe_path(@recipe)) do |f| %>
+    <%= f.label :list_recipe_id, 'Lista de Receitas' %> 
+    <%= f.collection_select(:list_recipe_id, @list_recipes, :id, :name) %> 
+    <%= f.submit 'Adicionar' %>
+    
+  <% end %>
+<% end %>
 
 <%= link_to 'Voltar', root_path %>
 

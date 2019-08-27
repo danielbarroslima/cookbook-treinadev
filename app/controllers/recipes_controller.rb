@@ -8,6 +8,10 @@ class RecipesController < ApplicationController
   end
 
   def show
+    if user_signed_in?
+      @list_recipes  = current_user.list_recipes
+      @menu = Menu.new
+    end
   end
 
   def new
@@ -51,12 +55,17 @@ class RecipesController < ApplicationController
     @recipes = current_user.recipes    
   end
 
-  # def add_to_list
-  #   list_recipe = ListRecipe.find(params[:menu][:list_recipe_id])
-  #   @menu = Menu.create(list_recipe: list_recipe, recipe_id: params[:id])
-  #   redirect_to list_recipe
-    
-  # end
+ def add_to_list
+    @list_recipe = ListRecipe.find(params[:menu][:list_recipe_id])
+    if @list_recipe.include?(@recipe)
+      flash[:notice] = 'Receita já inserida na lista'
+      redirect_to @recipe
+    else
+      Menu.create(list_recipe: @list_recipe, recipe: @recipe)
+      flash[:notice] = 'Receita adicionada com sucesso' 
+      redirect_to @list_recipe
+    end
+  end
 
   private
 

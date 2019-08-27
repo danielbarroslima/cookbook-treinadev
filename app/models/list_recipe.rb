@@ -4,4 +4,9 @@ class ListRecipe < ApplicationRecord
   has_many :recipes, through: :menus
   validates :name, presence: true
   validates :name, uniqueness: {case_sensitive: false}
+
+  def include?(recipe)
+    self.recipes.include?(recipe)
+  end 
+  
 end

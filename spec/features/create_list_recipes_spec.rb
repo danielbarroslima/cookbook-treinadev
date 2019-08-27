@@ -28,6 +28,7 @@ feature 'user create list of recipes' do
 
     visit root_path
     click_on 'Entrar'
+    
     within('#new_user') do
       fill_in 'Email', with: user.email
       fill_in 'Senha', with: 'teste123'
