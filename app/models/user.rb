@@ -5,5 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :recipes
   has_many :list_recipes
+
+  enum role: {user: 0, admin: 7}
            
 end

@@ -4,7 +4,7 @@ feature 'visitor adds revenue to their list' do
   scenario 'successfully' do 
   	recipe_type = RecipeType.create(name: 'Sobremesa')
     user = User.create(email: 'teste@teste.com', password: 'teste123')
-    other_user = User.create(email: 'other@teste.com', password: 'teste456')
+    other_user = User.create(email: 'other@teste.com', password: 'teste456',role: :admin)
     recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
@@ -33,8 +33,8 @@ feature 'visitor adds revenue to their list' do
 
   scenario 'not add recipes duplicates in list' do 
     recipe_type = RecipeType.create(name: 'Sobremesa')
-    user = User.create(email: 'teste@teste.com', password: 'teste123')
-    other_user = User.create(email: 'other@teste.com', password: 'teste456')
+    user = User.create(email: 'teste@teste.com', password: 'teste123', role: :admin)
+    other_user = User.create(email: 'other@teste.com', password: 'teste456',role: :user)
     recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',

@@ -9,7 +9,7 @@ feature 'User update recipe' do
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                  user: user)
+                  user: user, status: :rejected)
    
 
     # simula a ação do usuário
@@ -41,6 +41,8 @@ feature 'User update recipe' do
     expect(page).to have_css('p', text: '45 minutos')
     expect(page).to have_css('p', text:  'Cenoura, farinha, ovo, oleo de soja e chocolate')
     expect(page).to have_css('p', text: 'Faça um bolo e uma cobertura de chocolate')
+    expect(page).to have_content("Receita está no status: pending")
+
   end
 
   scenario 'and must fill in all fields' do
@@ -50,7 +52,7 @@ feature 'User update recipe' do
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                  user: user)
+                  user: user,status: :pending)
 
     # simula a ação do usuário
     visit root_path
@@ -86,12 +88,12 @@ feature 'User update recipe' do
                              recipe_type: recipe_type, cuisine: 'Brasileira',
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                             user: user)
+                             user: user, status: :rejected)
      other_recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
                                   recipe_type: other_recipe_type, cuisine: 'Brasileira',
                                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                                  user: other_user)   
+                                  user: other_user, status: :approved)   
     visit root_path
     
     click_on 'Entrar'
@@ -117,12 +119,12 @@ feature 'User update recipe' do
                              recipe_type: recipe_type, cuisine: 'Brasileira',
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                             user: user)
+                             user: user, status: :rejected)
      other_recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
                                   recipe_type: other_recipe_type, cuisine: 'Brasileira',
                                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                                  user: other_user)   
+                                  user: other_user,status: :pending)   
     visit root_path
     
     click_on 'Entrar'
@@ -145,7 +147,7 @@ feature 'User update recipe' do
                              recipe_type: recipe_type, cuisine: 'Brasileira',
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                             user: user)
+                             user: user, status: :approved)
     
     visit recipe_path(recipe)
 

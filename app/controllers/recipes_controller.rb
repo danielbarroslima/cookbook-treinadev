@@ -4,7 +4,11 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update my_recipes] 
 
   def index
-    @recipes = Recipe.all
+    if user_signed_in?
+      @recipes = current_user.recipes
+    else
+      @recipes = Recipe.approved  
+    end
   end
 
   def show
