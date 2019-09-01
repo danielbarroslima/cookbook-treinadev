@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'User update recipe' do
   scenario 'successfully' do
     recipe_type = RecipeType.create(name: 'Entrada')
-    user = User.create!(email: 'teste@teste.com',password: 'teste123',role: user)
+    user = User.create!(email: 'teste@teste.com',password: 'teste123',role: :user)
     recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',

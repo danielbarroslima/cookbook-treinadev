@@ -3,7 +3,6 @@ require 'rails_helper'
 feature 'admin register recipe type' do 
   scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com',password: 'teste123',role: :admin)
-	  recipe_type = RecipeType.create(name:'Entrada')
 	  
 	  visit root_path
 
@@ -85,7 +84,7 @@ feature 'admin register recipe type' do
 
   scenario 'other user access route recipe type ' do 
 
-    user = User.create!(email: 'teste@teste.com',password: 'teste123', role: :user)
+    user = User.create!(email: 'teste@teste.com',password: 'teste123')
 
     visit root_path
 

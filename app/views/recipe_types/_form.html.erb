@@ -4,10 +4,10 @@
 <%end%>
 <%end %>
 
-<%= form_for @recipe_type  do |r| %>
-<%=r.label :name, 'Nome'%>
-<%=r.text_field :name %>
-<%=r.submit 'Enviar' %>
+<%= form_for @recipe_type  do |f| %>
+<%=f.label :name, 'Nome'%>
+<%=f.text_field :name %>
+<%=f.submit 'Enviar' %>
 
 <% end %>
 
