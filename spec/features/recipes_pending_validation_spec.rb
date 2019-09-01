@@ -13,10 +13,10 @@ feature 'user register recipe for validation' do
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end  
-
+    click_on 'Receitas'
     click_on 'Enviar uma receita'
 
-    fill_in 'Título', with: 'Tabule'
+    fill_in 'Título', with: 'Tabule marroquino'
     select 'Entrada', from: 'Tipo da Receita'
     fill_in 'Cozinha', with: 'Arabe'
     fill_in 'Dificuldade', with: 'Fácil'

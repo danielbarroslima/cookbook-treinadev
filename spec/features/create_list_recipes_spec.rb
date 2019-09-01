@@ -12,7 +12,7 @@ feature 'user create list of recipes' do
       click_on 'Logar'
     end
 
-		click_on 'Minhas listas de receitas'
+		click_on 'Listas de receitas'
     click_on 'Criar Lista de Receitas'
 		fill_in 'Nome', with:'Final de Ano'
 		click_on 'Criar lista'
@@ -34,7 +34,7 @@ feature 'user create list of recipes' do
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end
-    click_on 'Minhas listas de receitas'
+    click_on 'Listas de receitas'
 
     expect(page).to have_content('Final de Ano')
     expect(page).to have_content('Dia das mães')
@@ -48,17 +48,19 @@ feature 'user create list of recipes' do
 
 		visit root_path
     click_on 'Entrar'
+
     within('#new_user') do
       fill_in 'Email', with: user.email
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end
-    click_on 'Minhas listas de receitas'
+    
+    click_on 'Listas de receitas'
 		click_on 'Criar Lista de Receitas'
 		fill_in 'Nome', with:'Final de Ano'
 		click_on 'Criar lista'
 
-		expect(page).to have_content('O nome não pode ser repetido um deixado em branco')
+		expect(page).to have_content('already exists')
 	end	
 
 end

@@ -1,10 +1,13 @@
 class RecipeTypesController < ApplicationController
-  before_action :recipe_type_new, only: %i[new create]
+  before_action :authenticate_user!, only: %i[new create show] 
+  before_action :admin!, only: %i[new create show]
+
   def show
     @recipe_type = RecipeType.find(params[:id])    
   end
 
   def new   		
+    @recipe_type = RecipeType.new
   end	
 
   def create
@@ -12,20 +15,18 @@ class RecipeTypesController < ApplicationController
     if @recipe_type.save
       redirect_to @recipe_type
     else
-      flash[:notice] = 'Tipo não pode ser em branco ou repetido'
       render :new    
     end
   end 
 
-
   private
+
     def recipe_type_params
       params.require(:recipe_type).permit(:name)	
     end
 
-    def recipe_type_new
-      @recipe_type = RecipeType.new 
+    def admin!
+      return redirect_to root_path unless current_user != current_user.admin!
     end
-
 
 end	

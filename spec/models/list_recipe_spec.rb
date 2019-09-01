@@ -5,12 +5,12 @@ describe ListRecipe do
   	recipe_type = RecipeType.create(name: 'Sobremesa')
     recipe_type = RecipeType.create(name: 'Entrada')
     user = User.create!(email: 'teste@teste.com',password: 'teste123')
-    recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
+    recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: user)
-    other_recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
+    other_recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',

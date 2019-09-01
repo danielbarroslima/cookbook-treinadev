@@ -1,5 +1,4 @@
 <h1><%= @recipe.title %></h1>
-
 <h3>Detalhes</h3>
 
 <p>Tipo da receita:</p>
@@ -13,23 +12,32 @@
 
 <h3>Ingredientes</h3>
 <p><%= @recipe.ingredients %></p>
-
 <h3>Como Preparar</h3>
 <p><%= @recipe.cook_method %></p>
 <p><%="Receita enviada por #{@recipe.user.email}"%></p>
-<p><%= "Receita está no status: #{@recipe.status}"%></p>
 <%if current_user && current_user == @recipe.user%>
   <%=link_to 'Editar', edit_recipe_path %>
+	<p><%= "Receita está no status: #{@recipe.status}"%></p>
+<%else%>
+   <%= "Publicada em: #{@recipe.updated_at}" %>	  
 <%end%>
 
 <% if current_user %>
+
+  <h3>Lista onde está receita está  </h3>
+
+  <% @recipe.list_recipes.each do |lista|   %>
+    <%= lista.name %>
+  <%end%>
+
   <%= form_for(@menu, url: add_to_list_recipe_path(@recipe)) do |f| %>
     <%= f.label :list_recipe_id, 'Lista de Receitas' %> 
     <%= f.collection_select(:list_recipe_id, @list_recipes, :id, :name) %> 
     <%= f.submit 'Adicionar' %>
-    
   <% end %>
 <% end %>
+
+
 
 <%= link_to 'Voltar', root_path %>
 

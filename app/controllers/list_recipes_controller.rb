@@ -1,7 +1,7 @@
 class ListRecipesController < ApplicationController
 	before_action :authenticate_user!, only: %i[index show new create]
 	def index
-	  @list_recipes = ListRecipe.all
+	  @list_recipes = current_user.list_recipes
 	end
 
 	def show
@@ -18,7 +18,6 @@ class ListRecipesController < ApplicationController
 	  if @list_recipe.save
 	  	redirect_to @list_recipe
 	  else
-	  	flash[:notice] = 'O nome não pode ser repetido um deixado em branco'
 	  	render :new		
 	  end	
 		

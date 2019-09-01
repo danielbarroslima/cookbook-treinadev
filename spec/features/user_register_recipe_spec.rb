@@ -22,9 +22,10 @@ feature 'User register recipe' do
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end   
+    click_on 'Receitas'
     click_on 'Enviar uma receita'
 
-    fill_in 'Título', with: 'Tabule'
+    fill_in 'Título', with: 'Tabule Marrroquino'
     select 'Entrada', from: 'Tipo da Receita'
     fill_in 'Cozinha', with: 'Arabe'
     fill_in 'Dificuldade', with: 'Fácil'
@@ -35,7 +36,7 @@ feature 'User register recipe' do
 
 
     # expectativas
-    expect(page).to have_css('h1', text: 'Tabule')
+    expect(page).to have_content('Tabule')
     expect(page).to have_css('h3', text: 'Detalhes')
     expect(page).to have_css('p', text: 'Entrada')
     expect(page).to have_css('p', text: 'Arabe')
@@ -61,7 +62,7 @@ feature 'User register recipe' do
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end
-
+    click_on 'Receitas'
     click_on 'Enviar uma receita'
 
     fill_in 'Título', with: ''
@@ -72,6 +73,6 @@ feature 'User register recipe' do
     fill_in 'Como Preparar', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Não foi possível salvar a receita')
+    expect(page).to have_content('Title only allows letters and must contain spaces')
   end
 end

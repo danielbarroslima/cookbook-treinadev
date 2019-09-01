@@ -4,11 +4,7 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update my_recipes] 
 
   def index
-    if user_signed_in?
-      @recipes = current_user.recipes
-    else
-      @recipes = Recipe.approved  
-    end
+    @recipes = Recipe.approved
   end
 
   def show
@@ -32,18 +28,15 @@ class RecipesController < ApplicationController
     if @recipe.save
       insert_sucess_recipe
     else
-      insert_fail_recipe
       render :new  
     end
   end
 
   def update
     return redirect_to root_path if current_user != @recipe.user
-    @recipe_type = RecipeType.find(params[:id])
     if @recipe.update(recipe_params)
       insert_sucess_recipe
     else
-      insert_fail_recipe  
       render :edit  
     end
   end
@@ -62,8 +55,8 @@ class RecipesController < ApplicationController
  def add_to_list
     @list_recipe = ListRecipe.find(params[:menu][:list_recipe_id])
     if @list_recipe.include?(@recipe)
-      flash[:notice] = 'Receita já inserida na lista'
       redirect_to @recipe
+      flash[:notice] = 'Receita já estava nesta lista' 
     else
       Menu.create(list_recipe: @list_recipe, recipe: @recipe)
       flash[:notice] = 'Receita adicionada com sucesso' 
@@ -80,10 +73,6 @@ class RecipesController < ApplicationController
     def insert_sucess_recipe
       redirect_to @recipe
     end 
-
-    def insert_fail_recipe
-      flash[:notice] = 'Não foi possível salvar a receita'  
-    end
 
     def recipe_find
       @recipe = Recipe.find(params[:id])

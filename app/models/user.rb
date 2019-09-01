@@ -7,5 +7,8 @@ class User < ApplicationRecord
   has_many :list_recipes
 
   enum role: {user: 0, admin: 7}
-           
+      
+  def validation_list_include(list_recipe)
+    return self.list_recipes.include?(list_recipe)
+  end         
 end

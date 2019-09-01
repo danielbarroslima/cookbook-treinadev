@@ -2,14 +2,13 @@ require 'rails_helper'
 
 feature 'User update recipe' do
   scenario 'successfully' do
-    recipe_type = RecipeType.create(name: 'Sobremesa')
     recipe_type = RecipeType.create(name: 'Entrada')
-    user = User.create!(email: 'teste@teste.com',password: 'teste123')
+    user = User.create!(email: 'teste@teste.com',password: 'teste123',role: user)
     recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: 'Brasileira',
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                  user: user, status: :rejected)
+                  user: user, status: :pending)
    
 
     # simula a ação do usuário
@@ -23,7 +22,8 @@ feature 'User update recipe' do
       click_on 'Logar'
     end
 
-    click_on 'Bolodecenoura'
+    click_on 'Receitas'
+    click_on recipe.title
     click_on 'Editar'
 
     fill_in 'Título', with: 'Bolo de cenoura'
@@ -65,6 +65,7 @@ feature 'User update recipe' do
       click_on 'Logar'
     end
 
+    click_on 'Receitas'
     click_on 'Bolodecenoura'
     click_on 'Editar'
 
@@ -76,37 +77,32 @@ feature 'User update recipe' do
     fill_in 'Como Preparar', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Não foi possível salvar a receita')
+    expect(page).to have_content("Ingredients can't be blank Ingredients is too short (minimum is 20 characters)")
   end
 
-  scenario 'user edits his recipe' do 
+  scenario 'do not edit another user recipe' do 
      recipe_type = RecipeType.create(name: 'Sobremesa')
-     other_recipe_type = RecipeType.create(name: 'Entrada')
-     user = User.create!(email: 'teste@teste.com',password: 'teste123')
+     user = User.create!(email: 'teste123@teste.com',password: 'teste123')
      other_user = User.create!(email: 'otherteste@teste.com',password: 'teste123')
      recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
                              recipe_type: recipe_type, cuisine: 'Brasileira',
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                             user: user, status: :rejected)
-     other_recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
-                                  recipe_type: other_recipe_type, cuisine: 'Brasileira',
-                                  cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
-                                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                                  user: other_user, status: :approved)   
+                             user: user, status: :approved)
+  
     visit root_path
     
     click_on 'Entrar'
 
     within('#new_user') do
-      fill_in 'Email', with: user.email
+      fill_in 'Email', with: other_user.email
       fill_in 'Senha', with: 'teste123'
       click_on 'Logar'
     end
 
-    click_on other_recipe.title
+    click_on recipe.title
 
-    expect(page).to have_content('Bolodecenoura')
+    expect(page).to have_content('Bolo de cenoura')
     expect(page).not_to have_link('Editar')
   end  
 

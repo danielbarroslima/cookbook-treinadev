@@ -1,7 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mr-auto">
+        <a class="nav-link"  <%= link_to 'Criar Lista de Receitas', new_list_recipe_path %> </a>
+    </ul>
+</nav>
+
 <h1> Suas Listas </h1>
 
+<p> Listas criadas </p>
+
 <% @list_recipes.each do |list| %>
-<%=list.name %>
+<%=link_to list.name,  list %>
 <%end%>
 
-<%= link_to 'Criar Lista de Receitas', new_list_recipe_path %>

@@ -10,27 +10,66 @@
   </head>
 
   <body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" ></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" <%= link_to 'Cookbook', root_path =%>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  <%= link_to 'Receitas', my_recipes_path %> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  <%= link_to 'Listas de receitas', list_recipes_path %> </a>
+      </li>
+
+      </li>
+      <% if user_signed_in? %>
+          <% if current_user.admin?%>
+           <li class="nav-item">
+            <a class="nav-link"  <%= link_to 'Enviar tipo de receita', new_recipe_type_path %> </a>
+          </li>
+          
+          <%end%>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#"><%="Olá #{current_user.email}"%></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" <%= link_to 'Sair', destroy_user_session_path, method: :delete %></a>
+        </li>
+
+      <%else%>
+         <li class="nav-item">
+          <a class="nav-link" <%= link_to 'Entrar', new_user_session_path %></a>
+        </li>
+      <% end%>
+    </ul>
+    <form class="form-inline my-2 my-lg-0"  <%= form_tag("/search", method: 'get') do %> 
+      <input class="form-control mr-sm-2" type="search" placeholder="Procurar Receita" aria-label="Pesquisar"
+      <%= text_field_tag(:search_recipe)%>
+      
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" <%= submit_tag 'Buscar' %> Buscar </button>
+         <%end%>
+    </form>
+  </div>
+</nav>
+
+
+
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <nav>
-    <%if user_signed_in? %>
-      <spam> <%= "Olá #{current_user.email}" %></spam>  
-      <%= link_to 'Minhas Receitas', my_recipes_path %>
-      <%= link_to 'Minhas listas de receitas', list_recipes_path %>
-      <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
-    <%else%>
-      <%= link_to 'Entrar', new_user_session_path %>
-    <%end%>
-    </nav>
-
-    <%= form_tag("/search", method: 'get') do%>
-    <%= label_tag(:search_recipe,'Search for:')%>
-    <%= text_field_tag(:search_recipe)%>
-    <%= submit_tag 'Buscar'%>
-    <%end%>
-
-
+<div class='container'>
     <%= yield %>
+</div>
   </body>
 </html>

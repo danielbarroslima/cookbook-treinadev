@@ -1,4 +1,11 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mr-auto">
+        <a class="nav-link"  <%= link_to 'Enviar uma receita', new_recipe_path%></a>
+    </ul>
+</nav>
+
+
 <%@recipes.each do |recipe|%>
-</h1><%=recipe.title%></h1>
+</h1><%= link_to recipe.title, recipe%></h1>
 <p><%="Receita enviada por #{recipe.user.email}"%></p>
 <%end%>
