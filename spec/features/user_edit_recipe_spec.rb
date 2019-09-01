@@ -2,10 +2,11 @@ require 'rails_helper'
 
 feature 'User update recipe' do
   scenario 'successfully' do
+    cuisine = Cuisine.create!(name:'Brasileira')
     recipe_type = RecipeType.create(name: 'Entrada')
     user = User.create!(email: 'teste@teste.com',password: 'teste123',role: :user)
     recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: 'Brasileira',
+                  recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: user, status: :pending)
@@ -28,6 +29,7 @@ feature 'User update recipe' do
 
     fill_in 'Título', with: 'Bolo de cenoura'
     select 'Entrada', from: 'Tipo da Receita'
+    select 'Brasileira', from: 'Cozinha'
     fill_in 'Dificuldade', with: 'Médio'
     fill_in 'Tempo de Preparo', with: '45'
     fill_in 'Ingredientes', with: 'Cenoura, farinha, ovo, oleo de soja e chocolate'
@@ -46,10 +48,11 @@ feature 'User update recipe' do
   end
 
   scenario 'and must fill in all fields' do
+    cuisine = Cuisine.create!(name:'Brasileira')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     user = User.create!(email: 'teste@teste.com',password: 'teste123')
     Recipe.create(title: 'Bolodecenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: 'Brasileira',
+                  recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: user,status: :pending)
@@ -70,7 +73,6 @@ feature 'User update recipe' do
     click_on 'Editar'
 
     fill_in 'Título', with: ''
-    fill_in 'Cozinha', with: ''
     fill_in 'Dificuldade', with: ''
     fill_in 'Tempo de Preparo', with: ''
     fill_in 'Ingredientes', with: ''
@@ -81,11 +83,12 @@ feature 'User update recipe' do
   end
 
   scenario 'do not edit another user recipe' do 
+     cuisine = Cuisine.create!(name:'Brasileira')
      recipe_type = RecipeType.create(name: 'Sobremesa')
      user = User.create!(email: 'teste123@teste.com',password: 'teste123')
      other_user = User.create!(email: 'otherteste@teste.com',password: 'teste123')
      recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
-                             recipe_type: recipe_type, cuisine: 'Brasileira',
+                             recipe_type: recipe_type, cuisine: cuisine,
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                              user: user, status: :approved)
@@ -107,17 +110,18 @@ feature 'User update recipe' do
   end  
 
   scenario 'access url recipe' do 
+     cuisine = Cuisine.create!(name:'Brasileira')
      recipe_type = RecipeType.create(name: 'Sobremesa')
      other_recipe_type = RecipeType.create(name: 'Entrada')
      user = User.create!(email: 'teste@teste.com',password: 'teste123')
      other_user = User.create!(email: 'otherteste@teste.com',password: 'teste123')
      recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
-                             recipe_type: recipe_type, cuisine: 'Brasileira',
+                             recipe_type: recipe_type, cuisine: cuisine,
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                              user: user, status: :rejected)
      other_recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
-                                  recipe_type: other_recipe_type, cuisine: 'Brasileira',
+                                  recipe_type: other_recipe_type, cuisine: cuisine,
                                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                                   user: other_user,status: :pending)   
@@ -137,10 +141,11 @@ feature 'User update recipe' do
   end  
 
     scenario 'access not authenticated' do 
+     cuisine = Cuisine.create!(name:'Brasileira') 
      recipe_type = RecipeType.create(name: 'Sobremesa')
      user = User.create!(email: 'teste@teste.com',password: 'teste123')
      recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
-                             recipe_type: recipe_type, cuisine: 'Brasileira',
+                             recipe_type: recipe_type, cuisine: cuisine,
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                              user: user, status: :approved)

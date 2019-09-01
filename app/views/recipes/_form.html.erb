@@ -9,8 +9,8 @@
 <%=recipe.text_field :title %>
 <%=recipe.label :recipe_type_id,'Tipo da Receita'%>
 <%=recipe.collection_select :recipe_type_id, @recipe_types, :id, :name %>
-<%=recipe.label :cuisine,'Cozinha'%>
-<%=recipe.text_field :cuisine%>
+<%=recipe.label :cuisine_id, 'Cozinha'%>
+<%=recipe.collection_select :cuisine_id,@cuisines, :id, :name %>
 <%=recipe.label :difficulty,'Dificuldade'%>
 <%=recipe.text_field :difficulty%>
 <%=recipe.label :cook_time,'Tempo de Preparo'%>

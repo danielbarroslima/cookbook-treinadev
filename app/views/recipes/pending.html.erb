@@ -1,0 +1,10 @@
+<h1>Receitas para análise</h1>
+<% @recipes.each do |recipe| %>
+<div id="recipe-<%= recipe.id %>">
+<%= link_to recipe.title, recipe %>
+<%= recipe.cuisine.name %>
+<%= recipe.user.email %>
+<%=link_to 'Aprovar', accept_recipe_path(recipe), method: :post%>
+<%=link_to 'Rejeitar', reject_recipe_path(recipe), method: :post%>
+</div>
+<%end%>

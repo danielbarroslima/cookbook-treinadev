@@ -3,10 +3,11 @@ require 'rails_helper'
 feature 'visitor adds revenue to their list' do  
   scenario 'successfully' do 
   	recipe_type = RecipeType.create!(name: 'Sobremesa')
+    cuisine = Cuisine.create!(name:'Brasileira')
     user = User.create!(email: 'teste@teste.com', password: 'teste123')
     other_user = User.create!(email: 'other@teste.com', password: 'teste456',role: :admin)
     recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: 'Brasileira',
+                  recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: other_user)
@@ -32,11 +33,12 @@ feature 'visitor adds revenue to their list' do
   end
 
   scenario 'not add recipes duplicates in list' do 
+    cuisine = Cuisine.create!(name:'Brasileira')
     recipe_type = RecipeType.create!(name: 'Sobremesa')
     user = User.create!(email: 'teste@teste.com', password: 'teste123', role: :admin)
     other_user = User.create!(email: 'other@teste.com', password: 'teste456',role: :user)
     recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: 'Brasileira',
+                  recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: other_user)
@@ -67,10 +69,11 @@ feature 'visitor adds revenue to their list' do
 
   scenario ' see which list the recipe is in' do 
     recipe_type = RecipeType.create!(name: 'Sobremesa')
+    cuisine = Cuisine.create!(name:'Brasileira')
     user = User.create!(email: 'teste@teste.com', password: 'teste123', role: :admin)
     other_user = User.create!(email: 'other@teste.com', password: 'teste456',role: :user)
     recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: 'Brasileira',
+                  recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: other_user)
@@ -90,7 +93,7 @@ feature 'visitor adds revenue to their list' do
 
     visit recipe_path(recipe)
 
-    expect(page).to have_content('Lista onde está receita está')
+    expect(page).to have_content('Lista onde esta receita está')
     expect(page).to have_link('Listas')
 
 

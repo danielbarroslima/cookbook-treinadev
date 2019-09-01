@@ -10,13 +10,13 @@ RSpec.describe Recipe, type: :model do
 
   describe '#owner?' do
     it 'true' do
-    	
+    cuisine = Cuisine.create!(name:'Brasileira')	
      recipe_type = RecipeType.create(name: 'Sobremesa')	
      other_recipe_type = RecipeType.create(name: 'Entrada')
      user = User.create!(email: 'teste@teste.com',password: 'teste123')
      other_user = User.create!(email: 'otherteste@teste.com',password: 'teste123')
      recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
-                             recipe_type: recipe_type, cuisine: 'Brasileira',
+                             recipe_type: recipe_type, cuisine: cuisine,
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                              user: user)
@@ -27,13 +27,13 @@ RSpec.describe Recipe, type: :model do
     end
 
     it 'false' do
-
+     cuisine = Cuisine.create!(name:'Brasileira') 
      recipe_type = RecipeType.create(name: 'Sobremesa')
      other_recipe_type = RecipeType.create(name: 'Entrada')
      user = User.create!(email: 'teste@teste.com',password: 'teste123')
      other_user = User.create!(email: 'otherteste@teste.com',password: 'teste123')
      recipe = Recipe.create!(title: 'Bolo de cenoura', difficulty: 'Médio',
-                             recipe_type: recipe_type, cuisine: 'Brasileira',
+                             recipe_type: recipe_type, cuisine: cuisine,
                              cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                              cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                              user: user)

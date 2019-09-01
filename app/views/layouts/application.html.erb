@@ -37,7 +37,12 @@
            <li class="nav-item">
             <a class="nav-link"  <%= link_to 'Enviar tipo de receita', new_recipe_type_path %> </a>
           </li>
-          
+          <li class="nav-item">
+            <a class="nav-link"  <%= link_to 'Cozinhas', cuisines_path %> </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link"  <%= link_to 'Pendentes', pending_recipes_path %> </a>
+          </li>
           <%end%>
         <li class="nav-item">
           <a class="nav-link disabled" href="#"><%="Olá #{current_user.email}"%></a>

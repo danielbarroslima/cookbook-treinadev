@@ -1,7 +1,10 @@
 class RecipesController < ApplicationController
   before_action :recipe_type_all, only: %i[new create edit update]
-  before_action :recipe_find,     only:       %i[show edit update add_to_list] 
+  before_action :cuisine_all, only: %i[new create edit update]
   before_action :authenticate_user!, only: %i[new create edit update my_recipes] 
+  before_action :not_admin, only: %i[accept pending reject]
+  before_action :recipe_find, only: %i[show edit update add_to_list] 
+
 
   def index
     @recipes = Recipe.approved
@@ -35,6 +38,7 @@ class RecipesController < ApplicationController
   def update
     return redirect_to root_path if current_user != @recipe.user
     if @recipe.update(recipe_params)
+       @recipe.pending! 
       insert_sucess_recipe
     else
       render :edit  
@@ -64,10 +68,26 @@ class RecipesController < ApplicationController
     end
   end
 
+  def pending
+    @recipes = Recipe.pending
+  end
+
+  def accept
+    Recipe.find(params[:id]).approved!
+    flash[:notice] = 'Receita aprovada'
+    redirect_to pending_recipes_path
+  end
+
+  def reject
+     Recipe.find(params[:id]).rejected!
+    flash[:notice] = 'Receita rejeitada'
+    redirect_to pending_recipes_path
+  end
+
   private
 
     def recipe_params
-      params.require(:recipe).permit(:title, :recipe_type_id, :cuisine, :difficulty, :cook_time, :ingredients,:cook_method)
+      params.require(:recipe).permit(:title, :recipe_type_id, :cuisine_id, :difficulty, :cook_time, :ingredients,:cook_method)
     end
 
     def insert_sucess_recipe
@@ -80,6 +100,14 @@ class RecipesController < ApplicationController
 
     def recipe_type_all
       @recipe_types = RecipeType.all
+    end
+
+    def cuisine_all
+      @cuisines = Cuisine.all      
+    end
+
+    def not_admin
+      return redirect_to root_path unless current_user.admin? 
     end
 
 

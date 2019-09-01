@@ -1,7 +1,7 @@
 class RecipeTypesController < ApplicationController
   before_action :authenticate_user!, only: %i[new create show] 
   before_action :admin!, only: %i[new create show]
-
+  
   def show
     @recipe_type = RecipeType.find(params[:id])    
   end
@@ -26,7 +26,7 @@ class RecipeTypesController < ApplicationController
     end
 
     def admin!
-      redirect_to root_path unless current_user.admin?
+      redirect_to root_path unless current_user.admin?  
     end
 
 end	

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'user register recipe for validation' do
   scenario 'successfully' do 
+    cuisine = Cuisine.create!(name:'Brasileira')
   	recipe_type = RecipeType.create(name: 'Entrada')
     user = User.create!(email: 'teste@teste.com',password: 'teste123')
 
@@ -18,7 +19,7 @@ feature 'user register recipe for validation' do
 
     fill_in 'Título', with: 'Tabule marroquino'
     select 'Entrada', from: 'Tipo da Receita'
-    fill_in 'Cozinha', with: 'Arabe'
+    select 'Brasileira', from: 'Cozinha'
     fill_in 'Dificuldade', with: 'Fácil'
     fill_in 'Tempo de Preparo', with: '45'
     fill_in 'Ingredientes', with: 'Trigo para quibe, cebola, tomate picado, azeite, salsinha'
@@ -29,11 +30,12 @@ feature 'user register recipe for validation' do
   end
 
   scenario 'revenue awaiting admin approval' do 
- 	recipe_type = RecipeType.create(name: 'Sobremesa')
+    cuisine = Cuisine.create!(name:'Brasileira')
+  	recipe_type = RecipeType.create(name: 'Sobremesa')
     RecipeType.create(name: 'Entrada')
     user = User.create(email: 'teste@teste.com', password: 'teste123')
     recipe = Recipe.create!(title: 'Bolodecenoura', difficulty: 'Médio',
-                  recipe_type: recipe_type, cuisine: 'Brasileira',
+                  recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
                   cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
                   user: user, status: :pending)

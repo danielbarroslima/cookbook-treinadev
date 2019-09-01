@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mr-auto">
+        <a class="nav-link"  <%= link_to 'Cadastrar cozinha', new_cuisine_path %></a>
+    </ul>
+</nav>
+
+
+<%@cuisines.each do |cuisine|%>
+</h1><%= link_to cuisine.name, cuisine%></h1>
+
+<%end%>
+
