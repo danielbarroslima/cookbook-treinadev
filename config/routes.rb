@@ -15,4 +15,12 @@ Rails.application.routes.draw do
   resources :list_recipes, only: %i[index show new create]
   resources :cuisines, only: %i[index show new create ]
 
+  namespace :api,  defaults: { format: 'json' } do
+    namespace :v1 do 
+      resources :recipes, only: %i[show]
+      resources :recipe_types, only: %i[show create]
+    end
+  end
+
+
 end
