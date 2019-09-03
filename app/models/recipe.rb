@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
   belongs_to :cuisine
   has_many :menus
   has_many :list_recipes, through: :menus
-
+  has_one_attached :image_recipe  
   enum status: { pending: 0 , approved: 12, rejected:22 }
 
   validates :title, presence: true, length: {minimum: 12 }, format: {with: /\A[a-zA-Z]\s?/, message: "only allows letters and must contain spaces"}
@@ -25,3 +25,4 @@ class Recipe < ApplicationRecord
   	self.user == user  	
   end
 end
+

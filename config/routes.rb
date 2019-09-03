@@ -17,7 +17,12 @@ Rails.application.routes.draw do
 
   namespace :api,  defaults: { format: 'json' } do
     namespace :v1 do 
-      resources :recipes, only: %i[show create]
+      resources :recipes, only: %i[show create destroy] do 
+        member do
+          post 'accept'
+          patch 'reject'
+        end
+      end
       resources :recipe_types, only: %i[show create]
     end
   end

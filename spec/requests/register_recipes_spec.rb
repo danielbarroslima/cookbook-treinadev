@@ -16,6 +16,21 @@ describe 'user access cookbook to' do
   	expect(response.status).to eq 201
   end
 
+  it 'fail create recipe' do
+    recipe_type = RecipeType.create!(name:'Sobremesa')
+    cuisine = Cuisine.create!(name:'brasileirasss')
+    user = User.create!(email:'teste@teste.com', password:'teste123')
+    post "/api/v1/recipes", params: {recipe:{ title: 'Bolo', difficulty: 'Médio',
+                             recipe_type_id: 1, cuisine_id: 1,
+                             cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
+                           cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                           user_id: 1}}
+
+    json_recipe = JSON.parse(response.body, symbolize_names: true )
+    expect(response.body).to  include('is too short') 
+    expect(response.status).to eq 412
+  end  
+
   it 'succeed in receiving all the recipes' do
   	recipe_type = RecipeType.create!(name:'Entrada')
   	cuisine = Cuisine.create!(name:'brasileira')
@@ -41,11 +56,4 @@ describe 'user access cookbook to' do
 
   	expect(response.status).to eq 201
   end
-
-
-
-
-
-
-
 end
