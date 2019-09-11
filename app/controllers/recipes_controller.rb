@@ -46,8 +46,8 @@ class RecipesController < ApplicationController
   end
   
   def search
-    @recipes = Recipe.where('title LIKE ?',"%#{params[:search_recipe]}%")
-    if @recipes.empty?
+    @recipes = Recipe.where('title LIKE ? AND status = ? ',"%#{params[:search_recipe]}%",12)
+    if @recipes.blank?
       flash.now[:alert] = 'Nenhuma receita encontrada com este nome'
     end  
   end
