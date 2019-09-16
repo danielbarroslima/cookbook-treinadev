@@ -1,13 +1,12 @@
 <%if @recipe_type.errors.any? %>
-<% @recipe_type.errors.full_messages.each do  |message|%>
-  <%= message%>
-<%end%>
+	<% @recipe_type.errors.full_messages.each do  |message|%>
+	  <%= message%>
+	<%end%>
 <%end %>
 
 <%= form_for @recipe_type  do |f| %>
-<%=f.label :name, 'Nome'%>
-<%=f.text_field :name %>
-<%=f.submit 'Enviar' %>
-
+	<%=f.label :name, 'Nome'%>
+	<%=f.text_field :name %>
+	<%=f.submit 'Enviar' %>
 <% end %>
 

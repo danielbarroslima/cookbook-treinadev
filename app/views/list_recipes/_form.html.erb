@@ -1,5 +1,4 @@
 
-
 <%if @list_recipe.errors.any? %>
   <%@list_recipe.errors.full_messages.each do |message|%>
     <%=message%>
@@ -7,7 +6,7 @@
 <%end %>
 
 <%= form_for @list_recipe do |list|%>
-<%=list.label :name , 'Nome'%>
-<%=list.text_field :name %>
-<%= list.submit 'Criar lista'%>
+	<%=list.label :name , 'Nome'%>
+	<%=list.text_field :name %>
+	<%= list.submit 'Criar lista'%>
 <%end%>

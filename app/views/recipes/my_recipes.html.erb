@@ -6,6 +6,6 @@
 
 
 <%@recipes.each do |recipe|%>
-</h1><%= link_to recipe.title, recipe%></h1>
-<p><%="Receita enviada por #{recipe.user.email}"%></p>
+	</h1><%= link_to recipe.title, recipe%></h1>
+	<p><%="Receita enviada por #{recipe.user.email}"%></p>
 <%end%>

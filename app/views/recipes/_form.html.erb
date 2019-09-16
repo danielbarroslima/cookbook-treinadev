@@ -5,22 +5,22 @@
 <%end %>
 
 <%=form_for @recipe do  |recipe| %>
-<%=recipe.label :title, 'Título'%>
-<%=recipe.text_field :title %>
-<%=recipe.label :image_recipe, 'Imagem da receita' %>
-<%=recipe.file_field :image_recipe %>
-<%=recipe.label :recipe_type_id,'Tipo da Receita'%>
-<%=recipe.collection_select :recipe_type_id, @recipe_types, :id, :name %>
-<%=recipe.label :cuisine_id, 'Cozinha'%>
-<%=recipe.collection_select :cuisine_id,@cuisines, :id, :name %>
-<%=recipe.label :difficulty,'Dificuldade'%>
-<%=recipe.text_field :difficulty%>
-<%=recipe.label :cook_time,'Tempo de Preparo'%>
-<%=recipe.number_field :cook_time%>
-<%=recipe.label :ingredients,'Ingredientes'%>
-<%=recipe.text_area :ingredients%>
-<%=recipe.label :cook_method,'Como Preparar'%>
-<%=recipe.text_area :cook_method%>
-<%=recipe.submit 'Enviar'%>
+	<%=recipe.label :title, 'Título'%>
+	<%=recipe.text_field :title %>
+	<%=recipe.label :image_recipe, 'Imagem da receita' %>
+	<%=recipe.file_field :image_recipe %>
+	<%=recipe.label :recipe_type_id,'Tipo da Receita'%>
+	<%=recipe.collection_select :recipe_type_id, @recipe_types, :id, :name %>
+	<%=recipe.label :cuisine_id, 'Cozinha'%>
+	<%=recipe.collection_select :cuisine_id,@cuisines, :id, :name %>
+	<%=recipe.label :difficulty,'Dificuldade'%>
+	<%=recipe.text_field :difficulty%>
+	<%=recipe.label :cook_time,'Tempo de Preparo'%>
+	<%=recipe.number_field :cook_time%>
+	<%=recipe.label :ingredients,'Ingredientes'%>
+	<%=recipe.text_area :ingredients%>
+	<%=recipe.label :cook_method,'Como Preparar'%>
+	<%=recipe.text_area :cook_method%>
+	<%=recipe.submit 'Enviar'%>
 <%end%>
 
